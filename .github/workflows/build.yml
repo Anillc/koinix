@@ -1,0 +1,21 @@
+name: build
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # - name: install nix
+    #   uses: cachix/install-nix-action@v15
+
+    # - name: setup cachix
+    #   uses: cachix/cachix-action@v10
+    #   with:
+    #     name: anillc
+    #     authToken: ${{ secrets.CACHIX_TOKEN }}
+
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: build
+      run: bash build.sh
