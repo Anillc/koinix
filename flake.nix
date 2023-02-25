@@ -6,6 +6,6 @@
   }: flake-utils.lib.eachDefaultSystem (system: let
     pkgs = import nixpkgs { inherit system; };
   in {
-    packages.koishi = pkgs.callPackage ./official {};
+    packages.koishi = pkgs.callPackage ./deps {};
   });
 }

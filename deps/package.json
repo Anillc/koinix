@@ -1,0 +1,8 @@
+{
+  "name": "deps",
+  "version": "0.0.0",
+  "dependencies": {
+    "koishi": "^4.11.7",
+    "@koishijs/plugin-echo": "^2.1.0"
+  }
+}
