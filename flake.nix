@@ -5,7 +5,18 @@
     self, nixpkgs, flake-utils
   }: flake-utils.lib.eachDefaultSystem (system: let
     pkgs = import nixpkgs { inherit system; };
-  in {
-    packages.koishi = pkgs.callPackage ./deps {} ["@koishijs/plugin-echo"];
+  in rec {
+    packages.buildDeps = pkgs.callPackage ./buildDeps {};
+    packages.buildKoishi = pkgs.callPackage ./buildKoishi { inherit (packages) buildDeps; };
+    packages.koishi = packages.buildKoishi {
+      host = "0.0.0.0";
+      port = 8080;
+      plugins = {
+        echo = {};
+        console = {};
+        sandbox = {};
+        rryth = {};
+      };
+    };
   });
 }

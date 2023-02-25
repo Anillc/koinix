@@ -17,12 +17,12 @@ deps: buildNpmPackage {
   dontNpmBuild = true;
   src = runCommand "deps" {} ''
     mkdir -p $out
-    cp ${writeText "package.json" (lib.strings.toJSON {
+    cp ${writeText "package.json" (strings.toJSON {
       name = "deps";
       version = "0.0.0";
       dependencies = listToAttrs (map (name: nameValuePair name "*") (deps ++ ["koishi"]));
     })} $out/package.json
-    cp ${./package-lock.json} $out/package-lock.json
+    cp ${../generated/package-lock.json} $out/package-lock.json
   '';
   installPhase = ''
     mkdir -p $out
