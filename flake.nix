@@ -8,7 +8,7 @@
   in rec {
     packages.buildDeps = pkgs.callPackage ./buildDeps {};
     packages.buildKoishi = pkgs.callPackage ./buildKoishi { inherit (packages) buildDeps; };
-    packages.koishi = packages.buildKoishi {
+    packages.default = packages.buildKoishi {
       host = "0.0.0.0";
       port = 8080;
       plugins = {
