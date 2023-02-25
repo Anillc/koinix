@@ -6,6 +6,6 @@
   }: flake-utils.lib.eachDefaultSystem (system: let
     pkgs = import nixpkgs { inherit system; };
   in {
-    packages.koishi = pkgs.callPackage ./deps {};
+    packages.koishi = pkgs.callPackage ./deps {} ["@koishijs/plugin-echo"];
   });
 }
