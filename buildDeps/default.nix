@@ -12,7 +12,7 @@ with lib;
 
 deps: buildNpmPackage {
   name = "koishi";
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = [ "--ignore-scripts" ];
   npmDepsHash = "sha256-F4SxOiv0WmZOh2DRBwi3yiKBhx9gGwgQsCn4xzOPtcw=";
   dontNpmBuild = true;
   src = runCommand "deps" {} ''

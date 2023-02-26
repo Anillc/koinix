@@ -18,7 +18,7 @@ config: let
     if elem "@koishijs/plugin-${x}" validPlugins then acc ++ ["@koishijs/plugin-${x}"]
     else if elem "koishi-plugin-${x}" validPlugins then acc ++ ["koishi-plugin-${x}"]
     else if elem x validPlugins then acc ++ [x]
-    else acc) [] plugins);
+    else throw "Unknown koishi plugin: ${x}") [] plugins);
 in writeScriptBin "koishi" ''
   #!${runtimeShell}
   export PATH=$PATH:${makeBinPath [ nodejs ]}
