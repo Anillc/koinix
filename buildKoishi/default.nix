@@ -19,8 +19,10 @@ config: let
     else if elem "koishi-plugin-${x}" validPlugins then acc ++ ["koishi-plugin-${x}"]
     else if elem x validPlugins then acc ++ [x]
     else throw "Unknown koishi plugin: ${x}") [] plugins);
+  configfile = writeText "koishi.json" (strings.toJSON config);
 in writeScriptBin "koishi" ''
   #!${runtimeShell}
   export PATH=$PATH:${makeBinPath [ nodejs ]}
-  ${deps}/node_modules/.bin/koishi start ${writeText "koishi.json" (strings.toJSON config)}
+  ln -sf ${configfile} koishi.json
+  ${deps}/node_modules/.bin/koishi start koishi.json
 ''
