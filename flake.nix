@@ -24,14 +24,13 @@
         dataview = {};
         explorer = {};
         logger = {};
-        # login = {};
+        auth.admin.password = "114514";
         insight = {};
         sandbox = {};
         database-sqlite = {};
         assets-local = {};
         puppeteer = {};
         screenshot = {};
-        rryth = {};
         echo = {};
       };
     };

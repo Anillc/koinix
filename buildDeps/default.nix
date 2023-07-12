@@ -13,7 +13,7 @@ with lib;
 deps: buildNpmPackage {
   name = "koishi";
   npmFlags = [ "--ignore-scripts" ];
-  npmDepsHash = "sha256-zHTr3eiBxtLrGmEBDL9IpNHUzsRYn9y92Z8MpscUF/Y=";
+  npmDepsHash = "sha256-nNOYAR9fPU0GrQCorYpT3Lv7DeuuP353IVyZYB6Vh44=";
   dontNpmBuild = true;
   src = runCommand "deps" {} ''
     mkdir -p $out
