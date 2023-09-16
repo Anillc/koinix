@@ -28,8 +28,8 @@
         EOF
       '';
     };
-    packages.buildDeps = pkgs.callPackage ./buildDeps {};
-    packages.buildKoishi = pkgs.callPackage ./buildKoishi { inherit (packages) buildDeps; };
+    packages.buildDeps = pkgs.callPackage ./src/deps.nix {};
+    packages.buildKoishi = pkgs.callPackage ./src/koishi.nix { inherit (packages) buildDeps; };
     packages.default = packages.buildKoishi {
       host = "0.0.0.0";
       port = 8080;
