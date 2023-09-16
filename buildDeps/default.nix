@@ -10,10 +10,13 @@ lib,
 
 with lib;
 
-deps: buildNpmPackage {
+let
+  hash = import ./hash.nix;
+in deps: buildNpmPackage {
   name = "koishi";
   npmFlags = [ "--ignore-scripts" ];
-  npmDepsHash = "sha256-nNOYAR9fPU0GrQCorYpT3Lv7DeuuP353IVyZYB6Vh44=";
+  inherit (hash) npmDepsHash;
+  # npmDepsHash = "sha256-vnjzIHl6MIDxKh8TM/GtJwbMlwni9DT5lmewtb4Y7bI=";
   dontNpmBuild = true;
   src = runCommand "deps" {} ''
     mkdir -p $out
