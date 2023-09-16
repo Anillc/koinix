@@ -21,8 +21,7 @@
         cd ..
 
         npmDepsHash=$(prefetch-npm-deps ./generated/package-lock.json)
-        cat > ./buildDeps/hash.nix <<EOF
-        # this file is generated
+        cat > ./generated/hash.nix <<EOF
         {
           npmDepsHash = "$npmDepsHash";
         }

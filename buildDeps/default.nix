@@ -11,7 +11,7 @@ lib,
 with lib;
 
 let
-  hash = import ./hash.nix;
+  hash = import ../generated/hash.nix;
 in deps: buildNpmPackage {
   name = "koishi";
   npmFlags = [ "--ignore-scripts" ];
