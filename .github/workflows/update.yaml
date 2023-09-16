@@ -1,0 +1,17 @@
+name: deploy
+on: [push, workflow_dispatch]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v20
+    # - uses: cachix/cachix-action@v12
+    #   with:
+    #     name: anillc
+    #     authToken: '${{ secrets.CACHIX_TOKEN }}'
+    - name: update
+      run: |
+        nix run .#update
+        cat ./buildDeps/hash.nix
