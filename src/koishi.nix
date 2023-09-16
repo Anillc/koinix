@@ -23,6 +23,7 @@ config: let
 in writeScriptBin "koishi" ''
   #!${runtimeShell}
   export PATH=$PATH:${makeBinPath [ nodejs ]}
-  ln -sf ${configfile} koishi.json
+  # koishi won't interpolate when config is not writable
+  cp --no-preserve=mode ${configfile} koishi.json
   ${deps}/node_modules/.bin/koishi start koishi.json
 ''
