@@ -8,6 +8,8 @@
   in rec {
     apps.update = flake-utils.lib.mkApp {
       drv = pkgs.writeScriptBin "update" ''
+        #!${pkgs.runtimeShell}
+
         export PATH=$PATH:${pkgs.lib.makeBinPath (with pkgs; [
           prefetch-npm-deps nodejs yarn
         ])}
