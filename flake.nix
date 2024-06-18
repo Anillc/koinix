@@ -6,33 +6,17 @@
   }: flake-utils.lib.eachDefaultSystem (system: let
     pkgs = import nixpkgs { inherit system; };
   in rec {
-    apps.update = flake-utils.lib.mkApp {
-      drv = pkgs.writeScriptBin "update" ''
-        #!${pkgs.runtimeShell}
-        set -u
-
-        export PATH=$PATH:${pkgs.lib.makeBinPath (with pkgs; [
-          prefetch-npm-deps nodejs yarn
-        ])}
-
-        cd locker
-        if [ ! -d node_modules ]; then
-          yarn
-        fi
-        ./build.sh
-        cp ./lock/* ../generated
-        cd ..
-
-        npmDepsHash=$(prefetch-npm-deps ./generated/package-lock.json)
-        cat > ./generated/hash.nix <<EOF
-        {
-          hash = "$npmDepsHash";
-        }
-        EOF
-      '';
+    packages._update = pkgs.substituteAll {
+      src = ./update.sh;
+      dir = "/bin";
+      isExecutable = true;
+      inherit (pkgs) runtimeShell;
+      path = pkgs.lib.makeBinPath (with pkgs; [
+        prefetch-npm-deps nodejs yarn
+      ]);
     };
-    packages.b = config: pkgs.callPackage ./src { inherit config; };
-    packages.default = packages.buildKoishi {
+    lib.buildKoishi = config: pkgs.callPackage ./src { inherit config; };
+    packages.default = lib.buildKoishi {
       host = "0.0.0.0";
       port = 8080;
       plugins = {

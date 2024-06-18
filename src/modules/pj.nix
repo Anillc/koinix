@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: let
   json = lib.strings.toJSON;
-  plugins = lib.attrNames config.config;
+  plugins = lib.attrNames config.config.plugins;
   valid = config.generated.plugins;
   deps = [ "koishi" ] ++ (map (plugin:
     if lib.elem "@koishijs/plugin-${plugin}" valid then "@koishijs/plugin-${plugin}"

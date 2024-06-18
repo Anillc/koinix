@@ -7,7 +7,7 @@ in {
       description = "node_modules hash";
     };
     plugins = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.listOf lib.types.str;
       description = "valid plugins";
     };
     lock = lib.mkOption {
