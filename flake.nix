@@ -26,13 +26,12 @@
         npmDepsHash=$(prefetch-npm-deps ./generated/package-lock.json)
         cat > ./generated/hash.nix <<EOF
         {
-          npmDepsHash = "$npmDepsHash";
+          hash = "$npmDepsHash";
         }
         EOF
       '';
     };
-    packages.buildDeps = pkgs.callPackage ./src/deps.nix {};
-    packages.buildKoishi = pkgs.callPackage ./src/koishi.nix { inherit (packages) buildDeps; };
+    packages.b = config: pkgs.callPackage ./src { inherit config; };
     packages.default = packages.buildKoishi {
       host = "0.0.0.0";
       port = 8080;
