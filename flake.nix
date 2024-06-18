@@ -9,6 +9,7 @@
     apps.update = flake-utils.lib.mkApp {
       drv = pkgs.writeScriptBin "update" ''
         #!${pkgs.runtimeShell}
+        set -u
 
         export PATH=$PATH:${pkgs.lib.makeBinPath (with pkgs; [
           prefetch-npm-deps nodejs yarn

@@ -2,6 +2,7 @@ import Scanner from '@koishijs/registry'
 import axios from 'axios'
 import { promises as fsp } from 'fs'
 
+// TODO: fetch registry.koishi.chat?
 ;(async () => {
   const scanner = new Scanner(async url => {
     const { data } = await axios.get('https://registry.npmjs.com' + url)
