@@ -17,7 +17,7 @@ nix run github:Anillc/koinix
 {
   inputs.koinix.url = "github:Anillc/koinix";
   outputs = { koinix, ... }: {
-    packages.x86_64-linux.default = koinix.packages.x86_64-linux.buildKoishi {
+    packages.x86_64-linux.default = koinix.lib.x86_64-linux.buildKoishi {
       host = "0.0.0.0";
       port = 8080;
       plugins = {
