@@ -1,20 +1,14 @@
-import Scanner from '@koishijs/registry'
-import axios from 'axios'
+import { SearchResult } from '@koishijs/registry'
 import { promises as fsp } from 'fs'
 
-// TODO: fetch registry.koishi.chat?
 ;(async () => {
-  const scanner = new Scanner(async url => {
-    const { data } = await axios.get('https://registry.npmjs.com' + url)
-    return data
-  })
-  await scanner.collect()
-  const packages = await scanner.analyze({ version: '4' })
+  const search: SearchResult = await fetch('https://registry.koishi.chat').then(res => res.json())
+  const packages = search.objects.filter(object => !object.ignored)
   const pj = {
     name: 'lock',
     version: '0.0.0',
-    dependencies: packages.reduce((acc, [latest]) => {
-      acc[latest.name] = `^${latest.version}`
+    dependencies: packages.reduce((acc, x) => {
+      acc[x.package.name] = `^${x.package.version}`
       return acc
     }, { koishi: '*' }),
   }

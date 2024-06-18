@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@koishijs/registry": "^7.0.3",
-    "axios": "^1.7.2"
+    "@koishijs/registry": "^7.0.3"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
