@@ -8,16 +8,14 @@ import { promises as fsp } from 'fs'
     return data
   })
   await scanner.collect()
-  const dependencies = scanner.objects.reduce((acc, x) => {
-    acc[x.package.name] = `^${x.package.version}`
-    return acc
-  }, {
-    koishi: "*"
-  })
+  const packages = await scanner.analyze({ version: '4' })
   const pj = {
     name: 'lock',
     version: '0.0.0',
-    dependencies,
+    dependencies: packages.reduce((acc, [latest]) => {
+      acc[latest.name] = `^${latest.version}`
+      return acc
+    }, { koishi: '*' }),
   }
   await fsp.mkdir('./lock', { recursive: true })
   await fsp.writeFile('./lock/package.json', JSON.stringify(pj))
