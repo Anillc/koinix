@@ -20,7 +20,7 @@ jobs:
     - name: update
       run: |
         nix flake update
-        nix run .#update
+        nix run .#_update
     - name: build
       run: |
         nix build .
