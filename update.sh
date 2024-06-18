@@ -3,17 +3,17 @@ set -u
 
 export PATH=@path@:$PATH
 
-cd locker
-if [ ! -d node_modules ]; then
-  yarn
-fi
-./build.sh
-cp ./lock/* ../generated
-cd ..
+REGISTRY="$(curl -L https://registry.koishi.chat)"
+DEPS="$(echo "$REGISTRY" | jq '[.objects[].package | { (.name): .version }] | add')"
+PJ=$(echo "$DEPS" | jq '{
+  name: "lock",
+  version: "0.0.0",
+  dependencies: [., { koishi: "*" }] | add,
+}')
 
-hash=$(prefetch-npm-deps ./generated/package-lock.json)
-cat > ./generated/hash.nix <<EOF
-{
-  hash = "$hash";
-}
-EOF
+rm -rf generated && mkdir -p generated
+cd generated
+echo $PJ > package.json
+npm i --package-lock-only --legacy-peer-deps
+HASH="$(prefetch-npm-deps package-lock.json)"
+echo "{ hash = \"$HASH\"; }" > hash.nix
