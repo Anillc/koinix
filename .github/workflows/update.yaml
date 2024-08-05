@@ -13,10 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: cachix/install-nix-action@v20
-    # - uses: cachix/cachix-action@v12
-    #   with:
-    #     name: anillc
-    #     authToken: '${{ secrets.CACHIX_TOKEN }}'
+    - uses: cachix/cachix-action@v12
+      with:
+        name: anillc
+        authToken: '${{ secrets.CACHIX_TOKEN }}'
     - name: update
       run: |
         nix flake update
