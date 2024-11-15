@@ -12,7 +12,7 @@
       isExecutable = true;
       inherit (pkgs) runtimeShell;
       path = pkgs.lib.makeBinPath (with pkgs; [
-        prefetch-npm-deps nodejs
+        prefetch-npm-deps nodejs jq
       ]);
     };
     lib.buildKoishi = config: pkgs.callPackage ./src { inherit config; };
