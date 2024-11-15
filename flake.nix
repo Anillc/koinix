@@ -20,27 +20,27 @@
       host = "0.0.0.0";
       port = 8080;
       plugins = {
-        # FIXME
-        # admin = {};
-        # bind = {};
-        # commands = {};
-        # help = {};
-        # inspect = {};
-        # locales = {};
-        # rate-limit = {};
-        # analytics = {};
-        # console = {};
-        # dataview = {};
+        admin = {};
+        bind = {};
+        commands = {};
+        help = {};
+        inspect = {};
+        locales = {};
+        rate-limit = {};
+        analytics = {};
+        console = {};
+        dataview = {};
+        # This causes build failure
         # explorer = {};
-        # logger = {};
-        # auth.admin.password = "114514";
-        # insight = {};
-        # sandbox = {};
-        # database-sqlite = {};
-        # assets-local = {};
-        # puppeteer = {};
-        # screenshot = {};
-        # echo = {};
+        logger = {};
+        auth.admin.password = "114514";
+        insight = {};
+        sandbox = {};
+        database-sqlite = {};
+        assets-local = {};
+        puppeteer = {};
+        screenshot = {};
+        echo = {};
       };
     };
   });
