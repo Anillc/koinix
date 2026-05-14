@@ -6,14 +6,16 @@
   }: flake-utils.lib.eachDefaultSystem (system: let
     pkgs = import nixpkgs { inherit system; };
   in rec {
-    packages._update = pkgs.substituteAll {
+    packages._update = pkgs.replaceVarsWith {
       src = ./update.sh;
-      dir = "/bin";
+      dir = "bin";
       isExecutable = true;
-      inherit (pkgs) runtimeShell;
-      path = pkgs.lib.makeBinPath (with pkgs; [
-        prefetch-npm-deps nodejs jq
-      ]);
+      replacements = {
+        inherit (pkgs) runtimeShell;
+        path = pkgs.lib.makeBinPath (with pkgs; [
+          prefetch-npm-deps nodejs jq
+        ]);
+      };
     };
     lib.buildKoishi = config: pkgs.callPackage ./src { inherit config; };
     packages.default = lib.buildKoishi {
